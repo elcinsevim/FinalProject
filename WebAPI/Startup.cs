@@ -29,6 +29,7 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //autofac,ninject,castlewindsor,structuremap===>>container
             services.AddControllers();
             services.AddSingleton<IProductService,ProductManager>();//ýproductservicebaðýmlýlýgývarsakarþýlýðýproductmanagerdirdemek
             services.AddSingleton<IProductDal, EfProductDal>();
