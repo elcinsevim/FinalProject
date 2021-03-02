@@ -35,7 +35,7 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName),
-               CheckIfProductCountOfCategoryCorrect(product.CategoryId));
+               CheckIfProductCountOfCategoryCorrect(product.CategoryId),ProductAddNot());
 
 
             if (result != null)
