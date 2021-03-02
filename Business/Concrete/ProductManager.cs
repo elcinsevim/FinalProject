@@ -120,4 +120,3 @@ namespace Business.Concrete
         }
     }
 
-}
