@@ -7,7 +7,7 @@ namespace DataAccess.Abstract
 {
   public  interface ICategoryDal:TEntityRepository<Category>
     {
-
+          
 
     }
 }
