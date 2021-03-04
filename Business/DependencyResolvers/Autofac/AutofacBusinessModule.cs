@@ -5,23 +5,32 @@ using Business.CCS;
 using Business.Concrete;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Business.DependencyResolvers.Autofac
 {
-    public class AutofacBusinessModule :Module//startuptakilerin yapılmasını sağlar
+    public class AutofacBusinessModule : Module//startuptakilerin yapılmasını sağlar
     {
-        protected override void Load(ContainerBuilder builder)//yüllkeme,yayınlamada,uygulama ayaaga kalkınca
+        protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance(); 
-            //surgess.add.singletona denk gelir
-            builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
-            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
-            builder.RegisterType<EfCategoryDal>().As<IProductDal>().SingleInstance();
+            builder.RegisterType<ProductManager>().As<IProductService>();
+            builder.RegisterType<EfProductDal>().As<IProductDal>();
+
+            builder.RegisterType<CategoryManager>().As<ICategoryService>();
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
+
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
@@ -29,8 +38,6 @@ namespace Business.DependencyResolvers.Autofac
                 {
                     Selector = new AspectInterceptorSelector()
                 }).SingleInstance();
-
-
         }
     }
 }
